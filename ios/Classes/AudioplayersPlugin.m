@@ -426,7 +426,9 @@ float _playbackRate = 1.0;
     if (isLocal) {
       playerItem = [ [ AVPlayerItem alloc ] initWithURL:[ NSURL fileURLWithPath:url ]];
     } else {
-      playerItem = [ [ AVPlayerItem alloc ] initWithURL:[ NSURL URLWithString:url ]];
+      NSString * mimeType = @"audio/mpeg";
+      AVURLAsset * asset = [[AVURLAsset alloc] initWithURL:[ NSURL URLWithString:url ] options:@{@"AVURLAssetOutOfBandMIMETypeKey": mimeType}];
+      playerItem = [AVPlayerItem playerItemWithAsset:asset];
     }
       
     if (playerInfo[@"url"]) {
